@@ -1,0 +1,227 @@
+{
+    "question": {
+        "id": 1,
+        "label": "What are you looking for?"
+    },
+    "options": [
+        {
+            "label": "Cloud Hosting",
+            "name": "cloud hosting",
+            "next": {
+                "question": {
+                    "id": 2,
+                    "label": "Which type of cloud hosting?"
+                },
+                "options": [
+                    {
+                        "label": "AKS Hosting",
+                        "name": "AKS hosting",
+                        "next": {
+                            "question": {
+                                "id": 3,
+                                "label": "Do you need auto-scaling?"
+                            },
+                            "options": [
+                                {
+                                    "label": "Yes",
+                                    "name": "auto-scaling",
+                                    "next": {
+                                        "question": {
+                                            "id": 6,
+                                            "label": "Do you require high availability?"
+                                        },
+                                        "options": [
+                                            {
+                                                "label": "Yes",
+                                                "name": "high availability",
+                                                "next": null
+                                            },
+                                            {
+                                                "label": "No",
+                                                "name": null,
+                                                "next": null
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "label": "No",
+                                    "name": null,
+                                    "next": null
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "label": "CM Hosting",
+                        "name": "CM Hosting",
+                        "next": {
+                            "question": {
+                                "id": 4,
+                                "label": "Do you need auto-scaling?"
+                            },
+                            "options": [
+                                {
+                                    "label": "Yes",
+                                    "name": "auto-scaling",
+                                    "next": {
+                                        "question": {
+                                            "id": 7,
+                                            "label": "Do you want managed services?"
+                                        },
+                                        "options": [
+                                            {
+                                                "label": "Yes",
+                                                "name": "managed services",
+                                                "next": null
+                                            },
+                                            {
+                                                "label": "No",
+                                                "name": null,
+                                                "next": null
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "label": "No",
+                                    "name": null,
+                                    "next": null
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "label": "Subscription",
+            "name": "subscription",
+            "next": {
+                "question": {
+                    "id": 5,
+                    "label": "Which subscription model suits you?"
+                },
+                "options": [
+                    {
+                        "label": "Monthly",
+                        "name": "monthly",
+                        "next": {
+                            "question": {
+                                "id": 8,
+                                "label": "Would you like a discount for a longer commitment?"
+                            },
+                            "options": [
+                                {
+                                    "label": "Yes, switch to annual",
+                                    "name": "a discount for a longer commitment",
+                                    "next": null
+                                },
+                                {
+                                    "label": "No, stick with monthly",
+                                    "name": null,
+                                    "next": null
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "label": "Annual",
+                        "name": "annual",
+                        "next": {
+                            "question": {
+                                "id": 9,
+                                "label": "Would you like to add additional support services?"
+                            },
+                            "options": [
+                                {
+                                    "label": "Yes",
+                                    "name": "add additional support services",
+                                    "next": {
+                                        "question": {
+                                            "id": 10,
+                                            "label": "Choose your support level"
+                                        },
+                                        "options": [
+                                            {
+                                                "label": "Basic",
+                                                "name": "basic support level",
+                                                "next": null
+                                            },
+                                            {
+                                                "label": "Premium",
+                                                "name": "premium support level",
+                                                "next": null
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "label": "No",
+                                    "name": null,
+                                    "next": null
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "label": "Dedicated Server",
+            "name": "dedicated server",
+            "next": {
+                "question": {
+                    "id": 11,
+                    "label": "What type of dedicated server?"
+                },
+                "options": [
+                    {
+                        "label": "Bare Metal",
+                        "name": "bare metal",
+                        "next": {
+                            "question": {
+                                "id": 12,
+                                "label": "Do you need a high-performance CPU?"
+                            },
+                            "options": [
+                                {
+                                    "label": "Yes",
+                                    "name": "a high-performance CPU",
+                                    "next": null
+                                },
+                                {
+                                    "label": "No",
+                                    "name": null,
+                                    "next": null
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "label": "Virtual Private Server (VPS)",
+                        "name": "Virtual Private Server (VPS)",
+                        "next": {
+                            "question": {
+                                "id": 13,
+                                "label": "Would you like automatic backups?"
+                            },
+                            "options": [
+                                {
+                                    "label": "Yes",
+                                    "name": "automatic backups",
+                                    "next": null
+                                },
+                                {
+                                    "label": "No",
+                                    "name": null,
+                                    "next": null
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
