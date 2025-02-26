@@ -167,7 +167,7 @@ const DecisionTree = () => {
     {isEnd && (
         <>
           <SummaryBox dataList={computeSummary()} startOver={startOver}/>
-          <Fireworks />
+          {/* <Fireworks /> */}
         </>
       )}
     </>
