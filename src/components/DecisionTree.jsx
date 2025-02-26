@@ -3,7 +3,6 @@ import data from "../data/data.json";
 import * as d3 from "d3";
 import SummaryBox from "./SummaryBox";
 import "./DecisionTree.css"
-import Fireworks from "./Fireworks";
 
 const DecisionTree = () => {
   const [history, setHistory] = useState([{ node: data, selectedOption: null }]);
@@ -167,7 +166,6 @@ const DecisionTree = () => {
     {isEnd && (
         <>
           <SummaryBox dataList={computeSummary()} startOver={startOver}/>
-          {/* <Fireworks /> */}
         </>
       )}
     </>

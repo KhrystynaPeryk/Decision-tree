@@ -1,7 +1,7 @@
 import "./SummaryBox.css"
 
 const SummaryBox = ({dataList, startOver}) => {
-console.log(dataList)
+
     return (
         <div className="summary-container">
             <div className="summary-box">
