@@ -2,7 +2,7 @@
 .summary-drawer {
   position: relative;
   width: 50%;
-  background: rgb(255, 255, 255);
+  background: rgb(41, 40, 40);
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out;
@@ -22,11 +22,12 @@
     font-size: smaller;
     margin-bottom: 1.5em;
     margin: 1em;
+    color: rgb(27, 27, 27);
 }
 
 .start-over-btn:hover {
   background: rgb(255, 85, 85);
-  color: white;
+  color: black;
 }
 
 .summary-article {
@@ -34,6 +35,7 @@
   line-height: 1.6;
   margin: 0 auto;
   padding: 2em;
+  color: white;
 }
 
 .summary-article h1 {
@@ -44,7 +46,6 @@
 .summary-article h2 {
   font-size: 1.75rem;
   margin-bottom: 0.5em;
-  color: rgb(1, 173, 173);;
 }
 
 .summary-article ul {

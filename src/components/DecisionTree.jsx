@@ -110,6 +110,7 @@ const DecisionTree = () => {
   const computeSummary = () => {
     return history.reduce((acc, step) => {
       if (step.selectedOption !== null) {
+        // "name" property from data.json
         const name = step.node.options[step.selectedOption].name;
         if (name) acc.push(name);
       }
