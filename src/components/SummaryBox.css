@@ -1,16 +1,3 @@
-.summary-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Ensure the background behind the summary is not blurred */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 4; /* This is above the fireworks canvas (z-index: 3) */
-    font-family: 'Roboto', serif;
-  }
   /* The summary drawer is positioned on the right */
 .summary-drawer {
   position: relative;
@@ -26,18 +13,6 @@
 .summary-drawer.open {
   transform: translateX(0);
 }
-  .summary-box {
-    padding: 20px;
-    width: 500px;
-    background: rgb(255, 255, 255);
-    text-align: center;
-    border-radius: 5px;
-    font-size: 18px;
-    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
-                rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
-                rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-    z-index: 5; /* Ensure it sits on top of everything else */
-  }
 
 .start-over-btn {
     padding: 1em 2em;
@@ -46,6 +21,7 @@
     border-radius: 5px;
     font-size: smaller;
     margin-bottom: 1.5em;
+    margin: 1em;
 }
 
 .start-over-btn:hover {
@@ -53,23 +29,34 @@
   color: white;
 }
 
-.summary-list {
-  list-style: none;
-  line-height: 1.4em;
+.summary-article {
+  font-family: "Roboto", serif;
+  line-height: 1.6;
+  margin: 0 auto;
   padding: 2em;
-  text-align: left;
 }
 
-.summary-item {
-  position: relative;
-  padding-left: 1.5em;
+.summary-article h1 {
+  font-size: 2rem;
+  color: #333;
 }
 
-.summary-item:before {
-  content: '';
-  position: absolute;
-  left: -1em;  /* place the SVG at the start of the padding */
-  width: 1em;
-  height: 15em;
-  background: url("data:image/svg+xml;utf8,<?xml version='1.0' encoding='utf-8'?><svg width='18' height='18' viewBox='0 0 1792 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1671 566q0 40-28 68l-724 724-136 136q-28 28-68 28t-68-28l-136-136-362-362q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295 656-657q28-28 68-28t68 28l136 136q28 28 28 68z'/></svg>") no-repeat;
+.summary-article h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5em;
+  color: rgb(1, 173, 173);;
+}
+
+.summary-article ul {
+  list-style: disc;
+  margin-left: 20px;
+}
+
+.summary-article ol {
+  list-style: decimal;
+  margin-left: 20px;
+}
+
+.summary-article li {
+  margin-bottom: 0.5em;
 }
