@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import data from "../data/data.json";
 import * as d3 from "d3";
 import SummaryBox from "./SummaryBox";
-import "./DecisionTree.css"
+import "./DecisionTree.css";
+import Arrow from "./Arrow";
 
 const DecisionTree = () => {
   const [history, setHistory] = useState([{ node: data, selectedOption: null }]);
@@ -23,7 +24,6 @@ const DecisionTree = () => {
   // 2) Remove any existing arrows for those future steps.
   // 3) Add next step if available, or mark the tree as ended.
   const handleOptionClick = (stepIndex, option, optionIndex) => {
-    // Remove lines from the clicked step onward
     const svg = d3.select(svgRef.current);
     for (let i = stepIndex; i < history.length; i++) {
       svg.selectAll(`.arrow-line-${i}`).remove();
@@ -48,35 +48,27 @@ const DecisionTree = () => {
     setHistory(newHistory);
   };
 
-  // Whenever history grows by one step, animate a new arrow from the previous box to the new one.
-  useEffect(() => {
-    if (history.length < 2) return;
-
-    // The arrow we draw will be from the second-last step to the last step
-    const currentIndex = history.length - 2; // from step
-    const nextIndex = history.length - 1;    // to step
-
-    const currentBox = boxRefs.current[currentIndex];
-    const nextBox = boxRefs.current[nextIndex];
+  // Extract the common arrow drawing logic
+  const drawArrow = (i) => {
+    const currentBox = boxRefs.current[i];
+    const nextBox = boxRefs.current[i + 1];
     if (!currentBox || !nextBox) return;
 
-    // Get the bounding boxes
+    // Get the bounding boxes of the current and next boxes, and the svg container
     const currentRect = currentBox.getBoundingClientRect();
     const nextRect = nextBox.getBoundingClientRect();
     const svgRect = svgRef.current.getBoundingClientRect();
 
-    // Calculate start/end points (center bottom of current → center top of next)
+    // Calculate start (center bottom of current) and end (center top of next)
     const x1 = currentRect.left + currentRect.width / 2 - svgRect.left;
     const y1 = currentRect.bottom - svgRect.top;
     const x2 = nextRect.left + nextRect.width / 2 - svgRect.left;
     const y2 = nextRect.top - svgRect.top;
 
-    // Draw and animate the arrow line
     const svg = d3.select(svgRef.current);
     const line = svg
       .append("line")
-      // Give this arrow a class so we can remove it if the user reselects
-      .attr("class", `arrow-line-${currentIndex}`)
+      .attr("class", `arrow-line-${i}`)
       .attr("x1", x1)
       .attr("y1", y1)
       .attr("x2", x1)
@@ -85,14 +77,36 @@ const DecisionTree = () => {
       .attr("stroke-width", 2)
       .attr("marker-end", "url(#arrow)");
 
-    line
-      .transition()
-      .duration(1000)
-      .attr("x2", x2)
-      .attr("y2", y2);
+    line.transition().duration(1000).attr("x2", x2).attr("y2", y2);
+  };
+
+  // Draw a new arrow when history grows by one step.
+  useEffect(() => {
+    if (history.length < 2) return;
+    const currentIndex = history.length - 2;
+    drawArrow(currentIndex);
   }, [history]);
 
-  // Collect selected "name" values for the summary
+  // Redraw all arrows on window resize.
+  useEffect(() => {
+    const redrawArrows = () => {
+      const svg = d3.select(svgRef.current);
+      svg.selectAll("line").remove();
+      for (let i = 0; i < history.length - 1; i++) {
+        drawArrow(i);
+      }
+    };
+
+    const handleResize = () => {
+      // Optionally debounce here if needed
+      redrawArrows();
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [history]);
+
+  // Collect selected "name" values for the summary.
   const computeSummary = () => {
     return history.reduce((acc, step) => {
       if (step.selectedOption !== null) {
@@ -105,70 +119,45 @@ const DecisionTree = () => {
 
   const startOver = () => {
     d3.select(svgRef.current).selectAll("line").remove();
-    setIsEnd(false)
-    setHistory([{ node: data, selectedOption: null }])
-  }
+    setIsEnd(false);
+    setHistory([{ node: data, selectedOption: null }]);
+  };
 
   return (
-    <>
-    <div className={`tree-container ${isEnd ? "blur" : ""}`}>
-      <svg
-        ref={svgRef}
-        id="svg-container"
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          pointerEvents: "none",
-          width: "100%",
-          height: "100%",
-          zIndex: 1,
-        }}
-      >
-        <defs>
-          <marker
-            id="arrow"
-            viewBox="0 0 10 10"
-            refX="10"
-            refY="5"
-            markerWidth="6"
-            markerHeight="6"
-            orient="auto-start-reverse"
+    <div className="app-container">
+      <div className="tree-container">
+        <Arrow svgRef={svgRef} />
+
+        {history.map((step, stepIndex) => (
+          <div
+            key={stepIndex}
+            className="question-box"
+            ref={(node) => setBoxRef(stepIndex, node)}
+            style={{ top: stepIndex * 140 }}
           >
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="black" />
-          </marker>
-        </defs>
-      </svg>
-
-      {history.map((step, stepIndex) => (
-        <div
-          key={stepIndex}
-          className="question-box"
-          ref={(node) => setBoxRef(stepIndex, node)}
-          style={{ top: stepIndex * 140 }}
-        >
-          <h3 className="question-label">{step.node.question.label}</h3>
-          <div className="options">
-            {step.node.options.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => handleOptionClick(stepIndex, option, index)}
-                className={step.selectedOption === index ? "option-btn selected" : "option-btn"}
-              >
-                {option.label}
-              </button>
-            ))}
+            <h3 className="question-label">{step.node.question.label}</h3>
+            <div className="options">
+              {step.node.options.map((option, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleOptionClick(stepIndex, option, index)}
+                  className={
+                    step.selectedOption === index ? "option-btn selected" : "option-btn"
+                  }
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-
+        ))}
+      </div>
+      <SummaryBox
+        dataList={computeSummary()}
+        startOver={startOver}
+        isOpen={isEnd} // show the drawer when the decision tree ends
+      />
     </div>
-    {isEnd && (
-        <>
-          <SummaryBox dataList={computeSummary()} startOver={startOver}/>
-        </>
-      )}
-    </>
   );
 };
 

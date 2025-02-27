@@ -11,7 +11,21 @@
     z-index: 4; /* This is above the fireworks canvas (z-index: 3) */
     font-family: 'Roboto', serif;
   }
-  
+  /* The summary drawer is positioned on the right */
+.summary-drawer {
+  position: relative;
+  width: 50%;
+  background: rgb(255, 255, 255);
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 2;
+}
+
+/* When open, slide it into view */
+.summary-drawer.open {
+  transform: translateX(0);
+}
   .summary-box {
     padding: 20px;
     width: 500px;
