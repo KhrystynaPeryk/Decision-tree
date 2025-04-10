@@ -19,7 +19,13 @@ const SummaryBox = ({ dataList, startOver, isOpen }) => {
             </button>
             <article className="summary-article">
                 <h2>{article.title}</h2>
-                <ReactMarkdown>{article.markdown}</ReactMarkdown>
+                <ReactMarkdown
+                components={{
+                    a: ({node, ...props}) => (
+                        <a {...props} target="_blank" rel="noopener noreferrer" />
+                    )
+                }}
+                >{article.markdown}</ReactMarkdown>
             </article>
 
         </div>

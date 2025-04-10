@@ -11,7 +11,7 @@ Your choices indicate a robust cloud solution that leverages **AKS**, supports *
 * **Scalability:** Automatically adjust to load.
 * **Reliability:** High uptime with redundant systems.
 
-_Read more for detailed insights..._
+[Read more for detailed insights...](https://example.com/details)
 `
 },
     "cloud hosting|AKS hosting|auto-scaling": {
@@ -22,7 +22,7 @@ _Read more for detailed insights..._
     "cloud hosting|AKS hosting": {
         title: "Basic Cloud Hosting with AKS",
         markdown:
-        "A straightforward cloud hosting setup with AKS, offering essential features without extra bells and whistles."
+        "A straightforward cloud hosting setup with AKS, offering essential features without extra bells and whistles. [Read more for detailed insights...](https://example.com/details)"
     },
 
     // Cloud Hosting → CM Hosting branch

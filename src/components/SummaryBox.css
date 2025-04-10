@@ -61,3 +61,12 @@
 .summary-article li {
   margin-bottom: 0.5em;
 }
+
+.summary-article a {
+  color: #80d0ff;
+  text-decoration: none;
+}
+
+.summary-article a:hover {
+  color: rgb(87, 87, 255); 
+}
